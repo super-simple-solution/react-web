@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Icons } from "@/components/icons";
-import { appConfig } from "@/config/app";
-import { Button } from "@/components/ui/button";
+import { useState } from "react"
+import { NavLink, useLocation } from "react-router-dom"
+import { cn } from "@/lib/utils"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Icons } from "@/components/icons"
+import { appConfig } from "@/config/app"
+import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,17 +12,17 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { mainMenu } from "@/config/menu";
-import { ChevronDownIcon, ViewVerticalIcon } from "@radix-ui/react-icons";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { Logo } from "../logo";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { mainMenu } from "@/config/menu"
+import { ChevronDownIcon, ViewVerticalIcon } from "@radix-ui/react-icons"
+import { ScrollArea } from "@radix-ui/react-scroll-area"
+import { Logo } from "../logo"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export function Header() {
     const [open, setOpen] = useState(false)
-    const location = useLocation();
+    const location = useLocation()
 
     return (
         <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur">
@@ -34,7 +34,7 @@ export function Header() {
                     <nav className="flex items-center space-x-6 text-sm font-medium">
                         {mainMenu.map((menu, index) =>
                             menu.items !== undefined ? (
-                                <DropdownMenu key={index}>
+                                <DropdownMenu key={menu.title}>
                                     <DropdownMenuTrigger className={cn(
                                         "flex items-center py-1 focus:outline-none text-sm font-medium transition-colors hover:text-primary",
                                         (menu.items.filter(subitem => subitem.to !== undefined).map(subitem => subitem.to))
@@ -46,7 +46,7 @@ export function Header() {
                                     <DropdownMenuContent className='w-48' align="start" forceMount>
                                         {menu.items.map((subitem, subindex) =>
                                             subitem.to !== undefined ? (
-                                                <NavLink key={subindex} to={subitem.to}>
+                                                <NavLink key={subitem.title} to={subitem.to}>
                                                     <DropdownMenuItem className={cn(
                                                         "hover:cursor-pointer",
                                                         { 'bg-muted': subitem.to === location.pathname }
@@ -56,9 +56,9 @@ export function Header() {
                                                 </NavLink>
                                             ) : (
                                                 subitem.label ? (
-                                                    <DropdownMenuLabel key={subindex}>{subitem.title}</DropdownMenuLabel>
+                                                    <DropdownMenuLabel key={subitem.title}>{subitem.title}</DropdownMenuLabel>
                                                 ) : (
-                                                    <DropdownMenuSeparator key={subindex} />
+                                                    <DropdownMenuSeparator key={subitem.title} />
                                                 )
                                             )
                                         )}
@@ -66,7 +66,7 @@ export function Header() {
                                 </DropdownMenu>
                             ) : (
                                 <NavLink
-                                    key={index}
+                                    key={menu.title}
                                     to={menu.to ?? ""}
                                     className={({ isActive }) => cn(
                                         "text-sm font-medium transition-colors hover:text-primary",
@@ -98,11 +98,11 @@ export function Header() {
                         </NavLink>
                         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-8 pl-8">
                             <Accordion type="single" collapsible className="w-full"
-                                defaultValue={"item-" + mainMenu.findIndex(item => item.items !== undefined ? item.items.filter(subitem => subitem.to !== undefined).map(subitem => subitem.to).includes(location.pathname) : false)}>
+                                defaultValue={`item-${mainMenu.findIndex(item => item.items !== undefined ? item.items.filter(subitem => subitem.to !== undefined).map(subitem => subitem.to).includes(location.pathname) : false)}`}>
                                 <div className="flex flex-col space-y-3">
                                     {mainMenu.map((menu, index) =>
                                         menu.items !== undefined ? (
-                                            <AccordionItem key={index} value={`item-${index}`} className="border-b-0 pr-6">
+                                            <AccordionItem key={menu.title} value={`item-${index}`} className="border-b-0 pr-6">
                                                 <AccordionTrigger className={cn(
                                                     "py-1 hover:no-underline hover:text-primary [&[data-state=open]]:text-primary",
                                                     (menu.items.filter(subitem => subitem.to !== undefined).map(subitem => subitem.to))
@@ -115,7 +115,7 @@ export function Header() {
                                                         {menu.items.map((submenu, subindex) => (
                                                             submenu.to !== undefined ? (
                                                                 <NavLink
-                                                                    key={subindex}
+                                                                    key={submenu.title}
                                                                     to={submenu.to}
                                                                     onClick={() => setOpen(false)}
                                                                     className={({ isActive }) => cn(
@@ -128,7 +128,7 @@ export function Header() {
                                                                 submenu.label !== '' ? (
                                                                     null
                                                                 ) : (
-                                                                    <div className="px-3">
+                                                                    <div key={submenu.title} className="px-3">
                                                                         {/* <Separator /> */}
                                                                     </div>
                                                                 )
@@ -139,7 +139,7 @@ export function Header() {
                                             </AccordionItem>
                                         ) : (
                                             <NavLink
-                                                key={index}
+                                                key={menu.title}
                                                 to={menu.to ?? ""}
                                                 onClick={() => setOpen(false)}
                                                 className={({ isActive }) => cn(
