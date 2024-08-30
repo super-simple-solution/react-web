@@ -1,15 +1,16 @@
 import path from "path"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
+import eslintPlugin from 'vite-plugin-eslint'
 
-const basenameProd = '/react-shadcn-starter'
+const basenameProd = '/react-web-starter'
 
 export default defineConfig(({ command }) => {
   const isProd = command === 'build'
 
   return {
     base: isProd ? basenameProd : '',
-    plugins: [react()],
+    plugins: [react(), eslintPlugin()],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
