@@ -1,5 +1,5 @@
-import { buttonVariants } from "@/components/ui/button";
-import { NavLink } from "react-router-dom";
+import { buttonVariants } from "@/components/ui/button"
+import { NavLink } from "react-router-dom"
 
 export default function NoMatch() {
     return (

@@ -1,7 +1,7 @@
-import path from "path"
+import path from "node:path"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
-import eslintPlugin from 'vite-plugin-eslint'
+import checker from 'vite-plugin-checker'
 
 const basenameProd = '/react-web-starter'
 
@@ -10,7 +10,11 @@ export default defineConfig(({ command }) => {
 
   return {
     base: isProd ? basenameProd : '',
-    plugins: [react(), eslintPlugin()],
+    plugins: [react(), checker({
+      biome: {
+        command: 'lint',
+      },
+    })],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
