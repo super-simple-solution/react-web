@@ -6,7 +6,6 @@ import NoMatch from "./pages/NoMatch";
 import Dashboard from "./pages/Dashboard";
 import Empty from "./pages/Empty";
 import Sample from "./pages/Sample";
-import GenerateImage from "./pages/GenerateImage";
 
 export const router = createBrowserRouter([
     {
@@ -24,10 +23,6 @@ export const router = createBrowserRouter([
             {
                 path: "empty",
                 element: <Empty />,
-            },
-            {
-                path: "generate-image",
-                element: <GenerateImage />,
             },
         ],
     },
