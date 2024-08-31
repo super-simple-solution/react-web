@@ -36,6 +36,10 @@ export const mainMenu: NavItemWithChildren[] = [
         title: 'Empty',
         to: 'empty',
     },
+    {
+        title: 'GenerateImage',
+        to: 'generate-image',
+    }
 ]
 
 export const sideMenu: NavItemWithChildren[] = []
